@@ -1,9 +1,10 @@
 import logo from "../assets/no-projects.png";
 import { useRef } from "react";
 import TaskManager from "./TaskManager";
+import Input from "./Input";
 export default function Dashboard({
   projectChosen,
-  projectSubmit,
+  dashboardPage,
   addProject,
   submittedProject,
   cancelSubmitProject,
@@ -28,7 +29,7 @@ export default function Dashboard({
       </button>
     </div>
   );
-  if (projectSubmit === "submit") {
+  if (dashboardPage === "submit") {
     dashboardContent = (
       <form
         className="flex flex-col items-center justify-center gap-4 h-[100%] w-[100%]"
@@ -50,44 +51,19 @@ export default function Dashboard({
             Save
           </button>
         </div>
-        <div className="flex flex-col w-[80%]">
-          {" "}
-          <label className="font-semibold" htmlFor="title">
-            TITLE
-          </label>
-          <input
-            className="bg-zinc-200  h-8"
-            ref={title}
-            type="text"
-            id="title"
-          />
-        </div>
-        <div className="flex flex-col w-[80%]">
-          <label className="font-semibold" htmlFor="description">
-            DESCRIPTION
-          </label>
-          <input
-            className="bg-zinc-200  h-12"
-            ref={description}
-            type="text"
-            id="description"
-          />
-        </div>
-        <div className="flex flex-col w-[80%]">
-          <label className="font-semibold" htmlFor="date">
-            DUE DATE
-          </label>
-          <input
-            className="bg-zinc-200  h-8"
-            ref={date}
-            type="date"
-            id="date"
-          />
-        </div>
+
+        <Input context="TITLE" typeInput="text" labelFor="title" ref={title} />
+        <Input
+          context="DESCRIPTION"
+          typeInput="text"
+          labelFor="description"
+          ref={description}
+        />
+        <Input context="DUE DATE" typeInput="date" labelFor="date" ref={date} />
       </form>
     );
   }
-  if (projectChosen) {
+  if (projectChosen && dashboardPage === "chosen") {
     dashboardContent = (
       <div className="w-[100%] h-[100] flex flex-col items-center justify-start ">
         <div className="pl-4 pr-4 flex w-[100%] justify-between">

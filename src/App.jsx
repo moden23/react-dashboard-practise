@@ -2,27 +2,30 @@ import { useState } from "react";
 import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/sidebar";
 function App() {
-  const [projectSubmit, setProjectSubmitProject] = useState("");
+  const [dashboardPage, setDashboardPage] = useState("");
   const [savedProjects, setSavedProjects] = useState([]);
-  const [projectToDisplay, setProjectToDisplay] = useState("");
+  const [projectChosen, setProjectChosen] = useState("");
   function submitProjectHandler() {
-    setProjectSubmitProject("submit");
+    setDashboardPage("submit");
   }
 
   function deleteFromSidebar(project) {
     setSavedProjects((prevProjects) =>
       prevProjects.map((prevProject) => prevProject != project)
     );
+    setDashboardPage("");
   }
 
   function submittedProjectHandler(newProject) {
     setSavedProjects((prevProjects) => [...prevProjects, newProject]);
+    setDashboardPage("");
   }
   function cancelSubmitProjectHandler() {
-    setProjectSubmitProject("");
+    setDashboardPage("");
   }
   function choseProjectDisplay(project) {
-    setProjectToDisplay(project);
+    setProjectChosen(project);
+    setDashboardPage("chosen");
   }
   return (
     <div className="flex h-full">
@@ -32,9 +35,9 @@ function App() {
         projects={savedProjects}
       />
       <Dashboard
+        projectChosen={projectChosen}
+        projectSubmit={dashboardPage}
         deleteHandler={deleteFromSidebar}
-        projectChosen={projectToDisplay}
-        projectSubmit={projectSubmit}
         addProject={submitProjectHandler}
         submittedProject={submittedProjectHandler}
         cancelSubmitProject={cancelSubmitProjectHandler}
