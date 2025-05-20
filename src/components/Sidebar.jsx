@@ -2,14 +2,22 @@ import { useState } from "react";
 
 export default function Sidebar({ projects, addProject, choseProjectHandler }) {
   return (
-    <aside>
-      <h2>YOUR PROJECTS</h2>
-      <button onClick={addProject}>+ Add Project</button>
+    <aside className="pt-8 gap-8 bg-black text-white mt-[2%] w-[20%] rounded-md flex flex-col">
+      <h2 className="text-lg font-bold text-center">YOUR PROJECTS</h2>
+      <button
+        className="text-neutral-400 bg-neutral-800 min-w-fit w-[70%] h-[5%] rounded-s-md"
+        onClick={addProject}
+      >
+        + Add Project
+      </button>
       {projects && (
-        <ul>
+        <ul className="pl-2 w-[80%]">
           {projects.map((project) => (
-            <li key={project}>
-              <button onClick={() => choseProjectHandler(project)}>
+            <li className="w-[80%]" key={project}>
+              <button
+                className="hover:bg-neutral-800 "
+                onClick={() => choseProjectHandler(project)}
+              >
                 {project.name}
               </button>
             </li>

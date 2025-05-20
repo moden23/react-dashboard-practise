@@ -9,10 +9,14 @@ function App() {
     setProjectSubmitProject("submit");
   }
 
+  function deleteFromSidebar(project) {
+    setSavedProjects((prevProjects) =>
+      prevProjects.map((prevProject) => prevProject != project)
+    );
+  }
+
   function submittedProjectHandler(newProject) {
-    setProjectSubmitProject("submitted");
     setSavedProjects((prevProjects) => [...prevProjects, newProject]);
-    setProjectToDisplay(newProject);
   }
   function cancelSubmitProjectHandler() {
     setProjectSubmitProject("");
@@ -21,20 +25,21 @@ function App() {
     setProjectToDisplay(project);
   }
   return (
-    <>
+    <div className="flex h-full">
       <Sidebar
         choseProjectHandler={choseProjectDisplay}
         addProject={submitProjectHandler}
         projects={savedProjects}
       />
       <Dashboard
+        deleteHandler={deleteFromSidebar}
         projectChosen={projectToDisplay}
         projectSubmit={projectSubmit}
         addProject={submitProjectHandler}
         submittedProject={submittedProjectHandler}
         cancelSubmitProject={cancelSubmitProjectHandler}
       />
-    </>
+    </div>
   );
 }
 
