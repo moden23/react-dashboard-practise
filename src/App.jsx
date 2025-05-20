@@ -6,12 +6,13 @@ function App() {
   const [savedProjects, setSavedProjects] = useState([]);
   const [projectChosen, setProjectChosen] = useState("");
   function submitProjectHandler() {
+    console.log(dashboardPage);
     setDashboardPage("submit");
   }
 
   function deleteFromSidebar(project) {
     setSavedProjects((prevProjects) =>
-      prevProjects.map((prevProject) => prevProject != project)
+      prevProjects.filter((prevProject) => prevProject != project)
     );
     setDashboardPage("");
   }
@@ -36,7 +37,7 @@ function App() {
       />
       <Dashboard
         projectChosen={projectChosen}
-        projectSubmit={dashboardPage}
+        dashboardPage={dashboardPage}
         deleteHandler={deleteFromSidebar}
         addProject={submitProjectHandler}
         submittedProject={submittedProjectHandler}

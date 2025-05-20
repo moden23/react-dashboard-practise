@@ -13,7 +13,7 @@ export default function Dashboard({
   const title = useRef();
   const description = useRef();
   const date = useRef();
-
+  console.log(dashboardPage);
   let dashboardContent = (
     <div className="flex flex-col items-center justify-center gap-4 h-[100%] w-[100%]">
       <img src={logo} className="w-20" alt="Logo" />

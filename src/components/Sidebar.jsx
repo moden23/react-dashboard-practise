@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 export default function Sidebar({ projects, addProject, choseProjectHandler }) {
   return (
     <aside className="pt-8 gap-8 bg-black text-white mt-[2%] w-[20%] rounded-md flex flex-col">
@@ -13,7 +12,7 @@ export default function Sidebar({ projects, addProject, choseProjectHandler }) {
       {projects && (
         <ul className="pl-2 w-[80%]">
           {projects.map((project) => (
-            <li className="w-[80%]" key={project}>
+            <li className="w-[80%]" key={uuidv4()}>
               <button
                 className="hover:bg-neutral-800 "
                 onClick={() => choseProjectHandler(project)}
