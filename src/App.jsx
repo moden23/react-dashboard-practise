@@ -5,8 +5,26 @@ function App() {
   const [dashboardPage, setDashboardPage] = useState("");
   const [savedProjects, setSavedProjects] = useState([]);
   const [projectChosen, setProjectChosen] = useState("");
+
+  //
+  function handleTask(task, operation, chosenProject) {
+    setSavedProjects((prevProjects) =>
+      prevProjects.map((prevProject) => {
+        if (prevProject.name === chosenProject.name) {
+          const updatedTaskList =
+            operation === "add"
+              ? [...prevProject.tasks, task]
+              : prevProjects.tasks.filter((prevTask) => prevTask !== task)({
+                  ...prevProjects,
+                  [prevProject.tasks]: updatedTaskList,
+                });
+        }
+        return prevProject;
+      })
+    );
+  }
+
   function submitProjectHandler() {
-    console.log(dashboardPage);
     setDashboardPage("submit");
   }
 
@@ -15,6 +33,10 @@ function App() {
       prevProjects.filter((prevProject) => prevProject != project)
     );
     setDashboardPage("");
+  }
+
+  function handleTask(project) {
+    setSavedProjects((prevProjects) => [...prevProjects, project]);
   }
 
   function submittedProjectHandler(newProject) {
@@ -36,6 +58,7 @@ function App() {
         projects={savedProjects}
       />
       <Dashboard
+        handleTask={handleTask}
         projectChosen={projectChosen}
         dashboardPage={dashboardPage}
         deleteHandler={deleteFromSidebar}

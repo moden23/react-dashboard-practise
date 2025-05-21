@@ -1,5 +1,5 @@
 import logo from "../assets/no-projects.png";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import TaskManager from "./TaskManager";
 import Input from "./Input";
 export default function Dashboard({
@@ -9,11 +9,12 @@ export default function Dashboard({
   submittedProject,
   cancelSubmitProject,
   deleteHandler,
+  handleTask,
 }) {
   const title = useRef();
   const description = useRef();
   const date = useRef();
-  console.log(dashboardPage);
+
   let dashboardContent = (
     <div className="flex flex-col items-center justify-center gap-4 h-[100%] w-[100%]">
       <img src={logo} className="w-20" alt="Logo" />
@@ -45,6 +46,7 @@ export default function Dashboard({
                 name: title.current.value,
                 description: description.current.value,
                 date: date.current.value,
+                tasks: [],
               });
             }}
           >
@@ -72,7 +74,11 @@ export default function Dashboard({
         </div>
         <p>{projectChosen.date}</p>
         <p>{projectChosen.description}</p>
-        <TaskManager />
+        <TaskManager
+          chosenProject={projectChosen}
+          tasks={projectChosen.tasks}
+          handlingTasks={handleTask}
+        />
       </div>
     );
   }
