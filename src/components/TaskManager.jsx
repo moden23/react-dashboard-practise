@@ -1,16 +1,19 @@
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-export default function TaskManager({ chosenProject, tasks, handlingTasks }) {
+export default function TaskManager({ chosenProject, handlingTasks }) {
   const task = useRef();
+  const tasks = chosenProject.tasks;
+
   return (
     <div className="flex flex-col w-[100%]">
       <h3 className="font-semibold text-xl">Tasks</h3>
       <div>
         <input ref={task} type="text"></input>
         <button
-          onClick={() =>
-            handlingTasks(task.current.value, "add", chosenProject)
-          }
+          onClick={() => {
+            handlingTasks(task.current.value, "add", chosenProject);
+            task.current.value = "";
+          }}
         >
           Add Task
         </button>
@@ -25,9 +28,7 @@ export default function TaskManager({ chosenProject, tasks, handlingTasks }) {
             >
               <p>{task}</p>
               <button
-                onClick={() =>
-                  handlingTasks(task.current.value, "clear", chosenProject)
-                }
+                onClick={() => handlingTasks(task, "clear", chosenProject)}
               >
                 Clear
               </button>

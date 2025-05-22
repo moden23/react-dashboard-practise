@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import TaskManager from "./TaskManager";
 import Input from "./Input";
 export default function Dashboard({
+  savedProjects,
   projectChosen,
   dashboardPage,
   addProject,
@@ -75,8 +76,11 @@ export default function Dashboard({
         <p>{projectChosen.date}</p>
         <p>{projectChosen.description}</p>
         <TaskManager
-          chosenProject={projectChosen}
-          tasks={projectChosen.tasks}
+          chosenProject={
+            savedProjects.filter(
+              (project) => projectChosen.name === project.name
+            )[0]
+          }
           handlingTasks={handleTask}
         />
       </div>

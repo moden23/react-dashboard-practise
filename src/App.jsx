@@ -6,7 +6,6 @@ function App() {
   const [savedProjects, setSavedProjects] = useState([]);
   const [projectChosen, setProjectChosen] = useState("");
 
-  //
   function handleTask(task, operation, chosenProject) {
     setSavedProjects((prevProjects) =>
       prevProjects.map((prevProject) => {
@@ -14,14 +13,17 @@ function App() {
           const updatedTaskList =
             operation === "add"
               ? [...prevProject.tasks, task]
-              : prevProjects.tasks.filter((prevTask) => prevTask !== task)({
-                  ...prevProjects,
-                  [prevProject.tasks]: updatedTaskList,
-                });
+              : prevProject.tasks.filter((prevTask) => prevTask !== task);
+
+          return {
+            ...prevProject,
+            tasks: updatedTaskList,
+          };
         }
         return prevProject;
       })
     );
+    choseProjectDisplay(chosenProject);
   }
 
   function submitProjectHandler() {
@@ -35,10 +37,6 @@ function App() {
     setDashboardPage("");
   }
 
-  function handleTask(project) {
-    setSavedProjects((prevProjects) => [...prevProjects, project]);
-  }
-
   function submittedProjectHandler(newProject) {
     setSavedProjects((prevProjects) => [...prevProjects, newProject]);
     setDashboardPage("");
@@ -47,7 +45,12 @@ function App() {
     setDashboardPage("");
   }
   function choseProjectDisplay(project) {
-    setProjectChosen(project);
+    const projectChosenArr = savedProjects.filter(
+      (prevProject) => prevProject === project
+    );
+    const projectChosen = projectChosenArr[0];
+    console.log(projectChosen);
+    setProjectChosen(projectChosen);
     setDashboardPage("chosen");
   }
   return (
@@ -58,6 +61,7 @@ function App() {
         projects={savedProjects}
       />
       <Dashboard
+        savedProjects={savedProjects}
         handleTask={handleTask}
         projectChosen={projectChosen}
         dashboardPage={dashboardPage}
