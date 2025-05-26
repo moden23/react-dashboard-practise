@@ -49,7 +49,6 @@ function App() {
       (prevProject) => prevProject === project
     );
     const projectChosen = projectChosenArr[0];
-    console.log(projectChosen);
     setProjectChosen(projectChosen);
     setDashboardPage("chosen");
   }
